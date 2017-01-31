@@ -63,6 +63,19 @@ namespace StopWatch
         public string Comment { get; set; }
         public EstimateUpdateMethods EstimateUpdateMethod { get; set; }
         public string EstimateUpdateValue { get; set; }
+
+        public bool Current
+        {
+            get
+            {
+                return Current;
+            }
+            set
+            {
+                BackColor = value ? SystemColors.Control : SystemColors.Window;
+            }
+        }
+
         public event EventHandler RemoveMeTriggered;
         #endregion
 
@@ -233,7 +246,6 @@ namespace StopWatch
             this.btnReset = new System.Windows.Forms.Button();
             this.btnStartStop = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
-            this.lblSplitter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbJira
@@ -337,19 +349,11 @@ namespace StopWatch
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
-            // lblSplitter
-            // 
-            this.lblSplitter.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblSplitter.Location = new System.Drawing.Point(0, 53);
-            this.lblSplitter.Name = "lblSplitter";
-            this.lblSplitter.Size = new System.Drawing.Size(512, 2);
-            this.lblSplitter.TabIndex = 6;
-            // 
             // IssueControl
             // 
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.btnRemoveIssue);
             this.Controls.Add(this.btnPostAndReset);
-            this.Controls.Add(this.lblSplitter);
             this.Controls.Add(this.lblSummary);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnStartStop);
@@ -364,7 +368,7 @@ namespace StopWatch
         }
 
 
-        private void Reset()
+        public void Reset()
         {
             Comment = null;
             EstimateUpdateMethod = EstimateUpdateMethods.Auto;
@@ -469,6 +473,12 @@ namespace StopWatch
 
         private void cbJira_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Control)
+            {
+                e.Handled = true;
+                return;
+            }
+
             if (e.KeyCode == Keys.Enter)
                 UpdateOutput(true);
         }
@@ -482,28 +492,32 @@ namespace StopWatch
 
         private void btnStartStop_Click(object sender, EventArgs e)
         {
+            StartStop();
+        }
+
+        public void StartStop()
+        {
             if (WatchTimer.Running) {
                 this.WatchTimer.Pause();
             }
             else {
                 this.WatchTimer.Start();
 
-                if (this.TimerStarted != null)
-                    this.TimerStarted(this, e);
+                this.TimerStarted?.Invoke(this, new EventArgs());
             }
             UpdateOutput();
         }
 
         private void btnRemoveIssue_Click(object sender, EventArgs e)
         {
-            this._MarkedForRemoval = true;
-            EventHandler handler = RemoveMeTriggered;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
+            Remove();
         }
 
+        public void Remove()
+        {
+            this._MarkedForRemoval = true;
+            RemoveMeTriggered?.Invoke(this, new EventArgs());
+        }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -512,6 +526,11 @@ namespace StopWatch
 
 
         private void btnPostAndReset_Click(object sender, EventArgs e)
+        {
+            PostAndReset();
+        }
+
+        public void PostAndReset()
         {
             using (var worklogForm = new WorklogForm(WatchTimer.TimeElapsed, settings.AllowManualEstimateAdjustments, Comment, EstimateUpdateMethod, EstimateUpdateValue))
             {
@@ -535,7 +554,6 @@ namespace StopWatch
             }
         }
 
-
         private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             EditTime();
@@ -545,6 +563,12 @@ namespace StopWatch
 
         private void tbTime_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Control)
+            {
+                e.Handled = true;
+                return;
+            }
+
             if (e.KeyCode == Keys.Enter)
                 EditTime();
         }
@@ -631,7 +655,7 @@ namespace StopWatch
         }
 
 
-        private void EditTime()
+        public void EditTime()
         {
             using (var editTimeForm = new EditTimeForm(WatchTimer.TimeElapsed))
             {
@@ -642,6 +666,13 @@ namespace StopWatch
                     UpdateOutput();
                 }
             }
+        }
+
+
+        public void OpenCombo()
+        {
+            cbJira.Focus();
+            cbJira.DroppedDown = true;
         }
         #endregion
 
@@ -655,7 +686,6 @@ namespace StopWatch
 
         private ToolTip ttIssue;
         private System.ComponentModel.IContainer components;
-        private Label lblSplitter;
         private Button btnPostAndReset;
 
         private JiraClient jiraClient;

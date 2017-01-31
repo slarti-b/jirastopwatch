@@ -16,6 +16,7 @@ limitations under the License.
 using StopWatch.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -128,7 +129,10 @@ namespace StopWatch
             SaveSettingsAndIssueStates();
 
             if (firstTick)
+            {
+                IssueUpdateCurrent();
                 CheckForUpdates();
+            }
         }
 
 
@@ -702,6 +706,118 @@ namespace StopWatch
         private const int defaultDelay = 30000;
         private const int maxIssues = 20;
         #endregion
+
+        private int currentIssueIndex;
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.Up)
+            {
+                IssueMoveUp();
+                e.Handled = true;
+            }
+
+
+            if (e.Control && e.KeyCode == Keys.Down)
+            {
+                IssueMoveDown();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.Space)
+            {
+                IssueTogglePlay();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.P)
+            {
+                IssuePostWorklog();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.E)
+            {
+                IssueEditTime();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.Back)
+            {
+                IssueReset();
+                e.Handled = true;
+            }
+
+            if (e.Control && e.KeyCode == Keys.Delete)
+            {
+                IssueDelete();
+                e.Handled = true;
+            }
+
+            if (e.Alt && e.KeyCode == Keys.Down)
+            {
+                IssueOpenCombo();
+                e.Handled = true;
+            }
+        }
+
+        private void IssueEditTime()
+        {
+            issueControls.ToList()[currentIssueIndex].EditTime();
+        }
+
+        private void IssueDelete()
+        {
+            issueControls.ToList()[currentIssueIndex].Remove();
+        }
+
+        private void IssueReset()
+        {
+            issueControls.ToList()[currentIssueIndex].Reset();
+        }
+
+        private void IssuePostWorklog()
+        {
+            issueControls.ToList()[currentIssueIndex].PostAndReset();
+        }
+
+        private void IssueTogglePlay()
+        {
+            issueControls.ToList()[currentIssueIndex].StartStop();
+        }
+
+        private void IssueMoveDown()
+        {
+            if (currentIssueIndex == issueControls.Count())
+                return;
+
+            currentIssueIndex++;
+            IssueUpdateCurrent();
+        }
+
+        private void IssueMoveUp()
+        {
+            if (currentIssueIndex == 0)
+                return;
+
+            currentIssueIndex--;
+            IssueUpdateCurrent();
+        }
+
+        private void IssueUpdateCurrent()
+        {
+            int i = 0;
+            foreach (var issue in issueControls)
+            {
+                issue.Current = i == currentIssueIndex;
+                i++;
+            }
+        }
+
+        private void IssueOpenCombo()
+        {
+            issueControls.ToList()[currentIssueIndex].OpenCombo();
+        }
     }
 
     // content item for the combo box
