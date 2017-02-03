@@ -156,6 +156,11 @@ namespace StopWatch
             WatchTimer.Pause();
             UpdateOutput();
         }
+
+        public void FocusKey()
+        {
+            cbJira.Focus();
+        }
         #endregion
 
 
