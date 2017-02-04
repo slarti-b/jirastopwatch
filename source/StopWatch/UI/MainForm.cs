@@ -130,7 +130,6 @@ namespace StopWatch
 
             if (firstTick)
             {
-                IssueUpdateCurrent();
                 CheckForUpdates();
             }
         }
@@ -402,6 +401,11 @@ namespace StopWatch
             pBottom.Top = ClientSize.Height - pBottom.Height;
 
             this.TopMost = this.settings.AlwaysOnTop;
+
+            if (currentIssueIndex >= issueControls.Count())
+                IssueSetCurrent(issueControls.Count() - 1);
+            else
+                IssueSetCurrent(currentIssueIndex);
 
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -813,8 +817,7 @@ namespace StopWatch
             if (currentIssueIndex == issueControls.Count() - 1)
                 return;
 
-            currentIssueIndex++;
-            IssueUpdateCurrent();
+            IssueSetCurrent(currentIssueIndex + 1);
         }
 
         private void IssueMoveUp()
@@ -822,12 +825,12 @@ namespace StopWatch
             if (currentIssueIndex == 0)
                 return;
 
-            currentIssueIndex--;
-            IssueUpdateCurrent();
+            IssueSetCurrent(currentIssueIndex - 1);
         }
 
-        private void IssueUpdateCurrent()
+        public void IssueSetCurrent(int index)
         {
+            currentIssueIndex = index;
             int i = 0;
             foreach (var issue in issueControls)
             {
