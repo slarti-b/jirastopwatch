@@ -810,7 +810,7 @@ namespace StopWatch
 
         private void IssueMoveDown()
         {
-            if (currentIssueIndex == issueControls.Count())
+            if (currentIssueIndex == issueControls.Count() - 1)
                 return;
 
             currentIssueIndex++;
