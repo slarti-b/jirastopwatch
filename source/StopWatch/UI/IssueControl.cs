@@ -72,7 +72,7 @@ namespace StopWatch
             }
             set
             {
-                BackColor = value ? SystemColors.Control : SystemColors.Window;
+                BackColor = value ? Color.LightSteelBlue : SystemColors.Window;
             }
         }
 
@@ -262,7 +262,7 @@ namespace StopWatch
             this.cbJira.DropDownWidth = 488;
             this.cbJira.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F);
             this.cbJira.IntegralHeight = false;
-            this.cbJira.Location = new System.Drawing.Point(12, 2);
+            this.cbJira.Location = new System.Drawing.Point(12, 5);
             this.cbJira.Name = "cbJira";
             this.cbJira.Size = new System.Drawing.Size(155, 28);
             this.cbJira.TabIndex = 0;
@@ -277,7 +277,7 @@ namespace StopWatch
             // tbTime
             // 
             this.tbTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.3F);
-            this.tbTime.Location = new System.Drawing.Point(256, 2);
+            this.tbTime.Location = new System.Drawing.Point(256, 5);
             this.tbTime.Name = "tbTime";
             this.tbTime.ReadOnly = true;
             this.tbTime.Size = new System.Drawing.Size(107, 28);
@@ -289,7 +289,7 @@ namespace StopWatch
             // lblSummary
             // 
             this.lblSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSummary.Location = new System.Drawing.Point(11, 33);
+            this.lblSummary.Location = new System.Drawing.Point(11, 36);
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Size = new System.Drawing.Size(482, 17);
             this.lblSummary.TabIndex = 6;
@@ -298,7 +298,7 @@ namespace StopWatch
             // 
             this.btnRemoveIssue.Enabled = false;
             this.btnRemoveIssue.Image = global::StopWatch.Properties.Resources.delete24;
-            this.btnRemoveIssue.Location = new System.Drawing.Point(465, 0);
+            this.btnRemoveIssue.Location = new System.Drawing.Point(465, 3);
             this.btnRemoveIssue.Name = "btnRemoveIssue";
             this.btnRemoveIssue.Size = new System.Drawing.Size(32, 32);
             this.btnRemoveIssue.TabIndex = 7;
@@ -310,7 +310,7 @@ namespace StopWatch
             // 
             this.btnPostAndReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPostAndReset.Image = global::StopWatch.Properties.Resources.posttime26;
-            this.btnPostAndReset.Location = new System.Drawing.Point(369, 0);
+            this.btnPostAndReset.Location = new System.Drawing.Point(369, 3);
             this.btnPostAndReset.Name = "btnPostAndReset";
             this.btnPostAndReset.Size = new System.Drawing.Size(32, 32);
             this.btnPostAndReset.TabIndex = 4;
@@ -322,7 +322,7 @@ namespace StopWatch
             // 
             this.btnReset.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReset.Image = global::StopWatch.Properties.Resources.reset24;
-            this.btnReset.Location = new System.Drawing.Point(429, 0);
+            this.btnReset.Location = new System.Drawing.Point(429, 3);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(32, 32);
             this.btnReset.TabIndex = 5;
@@ -334,7 +334,7 @@ namespace StopWatch
             // 
             this.btnStartStop.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnStartStop.Image = global::StopWatch.Properties.Resources.play26;
-            this.btnStartStop.Location = new System.Drawing.Point(220, 0);
+            this.btnStartStop.Location = new System.Drawing.Point(220, 3);
             this.btnStartStop.Name = "btnStartStop";
             this.btnStartStop.Size = new System.Drawing.Size(32, 32);
             this.btnStartStop.TabIndex = 2;
@@ -346,7 +346,7 @@ namespace StopWatch
             // 
             this.btnOpen.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOpen.Image = global::StopWatch.Properties.Resources.openbrowser26;
-            this.btnOpen.Location = new System.Drawing.Point(168, 0);
+            this.btnOpen.Location = new System.Drawing.Point(168, 3);
             this.btnOpen.Name = "btnOpen";
             this.btnOpen.Size = new System.Drawing.Size(32, 32);
             this.btnOpen.TabIndex = 1;
@@ -366,7 +366,7 @@ namespace StopWatch
             this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
-            this.Size = new System.Drawing.Size(498, 58);
+            this.Size = new System.Drawing.Size(517, 58);
             this.ResumeLayout(false);
             this.PerformLayout();
 
