@@ -309,7 +309,7 @@ namespace StopWatch
                 this.settings.IssueCount++;
                 this.InitializeIssueControls();
                 IssueControl AddedIssue = this.issueControls.Last();
-                IssueSetCurrentByControl(AddedIssue);
+                AddedIssue.focusJiraField();
                 this.pMain.ScrollControlIntoView(AddedIssue);
             }
         }
@@ -420,21 +420,17 @@ namespace StopWatch
 
         private void Issue_Selected(object sender, EventArgs e)
         {
-            IssueSetCurrentByControl((IssueControl)sender);
-        }
-
-        private void IssueSetCurrentByControl(IssueControl control)
-        {
             int i = 0;
             foreach (var issue in issueControls)
             {
-                if (issue == control)
+                if (issue == (IssueControl)sender)
                 {
                     IssueSetCurrent(i);
                     return;
                 }
                 i++;
             }
+
         }
 
         private void UpdateIssuesOutput(bool updateSummary = false)
@@ -859,8 +855,6 @@ namespace StopWatch
             foreach (var issue in issueControls)
             {
                 issue.Current = i == currentIssueIndex;
-                if (i == currentIssueIndex)
-                    pMain.ScrollControlIntoView(issue);
                 i++;
             }
         }
