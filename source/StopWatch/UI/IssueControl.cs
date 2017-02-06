@@ -77,8 +77,6 @@ namespace StopWatch
         }
 
         public event EventHandler RemoveMeTriggered;
-
-        public event EventHandler Selected;
         #endregion
 
 
@@ -275,7 +273,6 @@ namespace StopWatch
             this.cbJira.SelectedIndexChanged += new System.EventHandler(this.cbJira_SelectedIndexChanged);
             this.cbJira.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbJira_KeyDown);
             this.cbJira.Leave += new System.EventHandler(this.cbJira_Leave);
-            this.cbJira.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cbJira_MouseUp);
             // 
             // tbTime
             // 
@@ -288,7 +285,6 @@ namespace StopWatch
             this.tbTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbTime.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbTime_KeyDown);
             this.tbTime.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tbTime_MouseDoubleClick);
-            this.tbTime.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tbTime_MouseUp);
             // 
             // lblSummary
             // 
@@ -297,7 +293,6 @@ namespace StopWatch
             this.lblSummary.Name = "lblSummary";
             this.lblSummary.Size = new System.Drawing.Size(482, 17);
             this.lblSummary.TabIndex = 6;
-            this.lblSummary.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lblSummary_MouseUp);
             // 
             // btnRemoveIssue
             // 
@@ -322,7 +317,6 @@ namespace StopWatch
             this.ttIssue.SetToolTip(this.btnPostAndReset, "Submit worklog to Jira and reset timer");
             this.btnPostAndReset.UseVisualStyleBackColor = true;
             this.btnPostAndReset.Click += new System.EventHandler(this.btnPostAndReset_Click);
-            this.btnPostAndReset.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnPostAndReset_MouseUp);
             // 
             // btnReset
             // 
@@ -335,7 +329,6 @@ namespace StopWatch
             this.ttIssue.SetToolTip(this.btnReset, "Reset timer");
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            this.btnReset.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnReset_MouseUp);
             // 
             // btnStartStop
             // 
@@ -348,7 +341,6 @@ namespace StopWatch
             this.ttIssue.SetToolTip(this.btnStartStop, "Start/stop timer");
             this.btnStartStop.UseVisualStyleBackColor = true;
             this.btnStartStop.Click += new System.EventHandler(this.btnStartStop_Click);
-            this.btnStartStop.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnStartStop_MouseUp);
             // 
             // btnOpen
             // 
@@ -361,7 +353,6 @@ namespace StopWatch
             this.ttIssue.SetToolTip(this.btnOpen, "Open issueControl in browser");
             this.btnOpen.UseVisualStyleBackColor = true;
             this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
-            this.btnOpen.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnOpen_MouseUp);
             // 
             // IssueControl
             // 
@@ -376,7 +367,6 @@ namespace StopWatch
             this.Controls.Add(this.cbJira);
             this.Name = "IssueControl";
             this.Size = new System.Drawing.Size(517, 58);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.IssueControl_MouseUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -689,12 +679,6 @@ namespace StopWatch
             cbJira.Focus();
             cbJira.DroppedDown = true;
         }
-
-
-        private void SetSelected()
-        {
-            Selected?.Invoke(this, new EventArgs());
-        }
         #endregion
 
         #region private members
@@ -735,45 +719,5 @@ namespace StopWatch
             }
         }
         #endregion
-
-        private void IssueControl_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void cbJira_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnOpen_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnStartStop_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void tbTime_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnPostAndReset_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void btnReset_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
-
-        private void lblSummary_MouseUp(object sender, MouseEventArgs e)
-        {
-            SetSelected();
-        }
     }
 }

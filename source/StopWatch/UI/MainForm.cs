@@ -49,11 +49,6 @@ namespace StopWatch
 
             InitializeComponent();
 
-            pMain.HorizontalScroll.Maximum = 0;
-            pMain.AutoScroll = false;
-            pMain.VerticalScroll.Visible = false;
-            pMain.AutoScroll = true;
-
             Text = string.Format("{0} v. {1}", Application.ProductName, Application.ProductVersion);
 
             cbFilters.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -373,7 +368,6 @@ namespace StopWatch
                 issue.RemoveMeTriggered += new EventHandler(this.issue_RemoveMeTriggered);
                 issue.TimerStarted += issue_TimerStarted;
                 issue.TimerReset += Issue_TimerReset;
-                issue.Selected += Issue_Selected;
                 this.pMain.Controls.Add(issue);
             }
 
@@ -418,20 +412,6 @@ namespace StopWatch
             UpdateIssuesOutput(true);
         }
 
-        private void Issue_Selected(object sender, EventArgs e)
-        {
-            int i = 0;
-            foreach (var issue in issueControls)
-            {
-                if (issue == (IssueControl)sender)
-                {
-                    IssueSetCurrent(i);
-                    return;
-                }
-                i++;
-            }
-
-        }
 
         private void UpdateIssuesOutput(bool updateSummary = false)
         {
@@ -848,7 +828,7 @@ namespace StopWatch
             IssueSetCurrent(currentIssueIndex - 1);
         }
 
-        private void IssueSetCurrent(int index)
+        public void IssueSetCurrent(int index)
         {
             currentIssueIndex = index;
             int i = 0;
