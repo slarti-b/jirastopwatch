@@ -156,7 +156,7 @@ namespace StopWatch
             // 
             this.pMain.AutoScroll = true;
             this.pMain.BackColor = System.Drawing.SystemColors.Window;
-            this.pMain.Location = new System.Drawing.Point(0, 35);
+            this.pMain.Location = new System.Drawing.Point(0, 39);
             this.pMain.Margin = new System.Windows.Forms.Padding(0);
             this.pMain.Name = "pMain";
             this.pMain.Size = new System.Drawing.Size(517, 70);
