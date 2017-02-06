@@ -295,11 +295,6 @@ namespace StopWatch
 
         private void pbAddIssue_Clicked(object sender, EventArgs e)
         {
-            IssueAdd();
-        }
-
-        private void IssueAdd()
-        {
             if (this.settings.IssueCount < maxIssues || this.issueControls.Count() < maxIssues)
             {
                 this.settings.IssueCount++;
@@ -729,13 +724,13 @@ namespace StopWatch
                 e.Handled = true;
             }
 
-            if (e.Control && e.KeyCode == Keys.P)
+            if (e.Control && e.KeyCode == Keys.Space)
             {
                 IssueTogglePlay();
                 e.Handled = true;
             }
 
-            if (e.Control && e.KeyCode == Keys.L)
+            if (e.Control && e.KeyCode == Keys.P)
             {
                 IssuePostWorklog();
                 e.Handled = true;
@@ -747,7 +742,7 @@ namespace StopWatch
                 e.Handled = true;
             }
 
-            if (e.Control && e.KeyCode == Keys.R)
+            if (e.Control && e.KeyCode == Keys.Back)
             {
                 IssueReset();
                 e.Handled = true;
@@ -756,18 +751,6 @@ namespace StopWatch
             if (e.Control && e.KeyCode == Keys.Delete)
             {
                 IssueDelete();
-                e.Handled = true;
-            }
-
-            if (e.Control && e.KeyCode == Keys.I)
-            {
-                IssueFocusKey();
-                e.Handled = true;
-            }
-
-            if (e.Control && e.KeyCode == Keys.N)
-            {
-                IssueAdd();
                 e.Handled = true;
             }
 
@@ -786,11 +769,6 @@ namespace StopWatch
         private void IssueDelete()
         {
             issueControls.ToList()[currentIssueIndex].Remove();
-        }
-
-        private void IssueFocusKey()
-        {
-            issueControls.ToList()[currentIssueIndex].FocusKey();
         }
 
         private void IssueReset()
